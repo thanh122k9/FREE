@@ -235,7 +235,7 @@ export default function History() {
                     )}
 
                     <div className="w-full bg-white text-slate-950 font-black py-4 rounded-[18px] text-[13px] flex items-center justify-center shadow-xl tracking-tight">
-                      hoa hồng nhận được : {product.adminQuotePrice}
+                      hoa hồng nhận được : {product.adminQuotePrice} đồng
                     </div>
                   </div>
                 )}
