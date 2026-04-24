@@ -65,7 +65,7 @@ export default function History() {
     });
 
     return () => unsubscribeProducts();
-  }, [isAdmin]);
+  }, [isAdmin, auth.currentUser?.uid]);
 
   const handleMarkBought = async (productId: string) => {
     setActingOn(productId);
@@ -153,8 +153,12 @@ export default function History() {
   return (
     <div className="space-y-6 pb-32 pt-6 px-4">
       <div className="flex flex-col -space-y-0.5">
-        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+        <h1 className="text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
           {isAdmin ? 'Quản trị hệ thống' : 'Lịch sử đề xuất'}
+          <span className="flex h-2 w-2 relative">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+          </span>
         </h1>
         <span className="text-[11px] font-medium text-slate-400">
           {isAdmin ? 'Bảng điều khiển kiểm soát LinkRegistry™' : 'Danh sách các liên kết bạn đã gửi'}
