@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { collection, query, orderBy, onSnapshot, doc, updateDoc, getDoc } from 'firebase/firestore';
+import { collection, query, orderBy, onSnapshot, doc, updateDoc, getDoc, deleteDoc } from 'firebase/firestore';
 import { auth, db } from '../lib/firebase';
-import { ExternalLink, Clock, User, Link as LinkIcon, Loader2, Edit3, ShoppingCart, CheckCircle2, XCircle } from 'lucide-react';
+import { ExternalLink, Clock, User, Link as LinkIcon, Loader2, Edit3, ShoppingCart, CheckCircle2, XCircle, Trash2, Ban } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface Product {
@@ -10,7 +10,7 @@ interface Product {
   userName: string;
   userPhoto?: string;
   url: string;
-  status: 'pending' | 'quoted' | 'purchased' | 'completed';
+  status: 'pending' | 'quoted' | 'purchased' | 'completed' | 'rejected';
   adminQuotePrice?: string;
   adminQuoteLink?: string;
   adminNote?: string;
@@ -23,6 +23,7 @@ const statusConfig = {
   quoted: { label: 'Chờ mua', color: 'bg-indigo-50 text-indigo-600 border-indigo-100' },
   purchased: { label: 'Đã mua - Chờ duyệt', color: 'bg-blue-50 text-blue-600 border-blue-100' },
   completed: { label: 'Hoàn tất', color: 'bg-emerald-50 text-emerald-600 border-emerald-100' },
+  rejected: { label: 'Bị từ chối', color: 'bg-rose-50 text-rose-600 border-rose-100' },
 };
 
 export default function History() {
@@ -107,6 +108,33 @@ export default function History() {
         status: 'completed',
         updatedAt: new Date().toISOString(),
       });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setActingOn(null);
+    }
+  };
+
+  const handleAdminReject = async (productId: string) => {
+    if (!window.confirm('Bạn có chắc chắn muốn từ chối yêu cầu này?')) return;
+    setActingOn(productId);
+    try {
+      await updateDoc(doc(db, 'products', productId), {
+        status: 'rejected',
+        updatedAt: new Date().toISOString(),
+      });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setActingOn(null);
+    }
+  };
+
+  const handleDelete = async (productId: string) => {
+    if (!window.confirm('Hành động này không thể hoàn tác. Xóa yêu cầu này?')) return;
+    setActingOn(productId);
+    try {
+      await deleteDoc(doc(db, 'products', productId));
     } catch (err) {
       console.error(err);
     } finally {
@@ -263,6 +291,29 @@ export default function History() {
                         {actingOn === product.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
                         Hoàn tất
                       </button>
+                    )}
+
+                    {isAdmin && (
+                      <div className="flex gap-2 ml-2">
+                        {product.status !== 'rejected' && product.status !== 'completed' && (
+                          <button
+                            onClick={() => handleAdminReject(product.id)}
+                            disabled={actingOn === product.id}
+                            className="p-2 text-rose-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-all"
+                            title="Từ chối"
+                          >
+                            <Ban className="w-4 h-4" />
+                          </button>
+                        )}
+                        <button
+                          onClick={() => handleDelete(product.id)}
+                          disabled={actingOn === product.id}
+                          className="p-2 text-slate-300 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-all"
+                          title="Xóa vĩnh viễn"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
                     )}
                   </div>
                 </div>
