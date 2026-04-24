@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addDoc, collection, doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../lib/firebase';
-import { Link2, Type, AlignLeft, DollarSign, Image as ImageIcon, Send, Sparkles, AlertCircle, ShieldAlert } from 'lucide-react';
+import { Link2, Type, AlignLeft, DollarSign, Image as ImageIcon, Send, Sparkles, AlertCircle, ShieldAlert, Loader2 } from 'lucide-react';
 import { extractProductInfo } from '../services/geminiService';
 import { motion } from 'motion/react';
 
@@ -27,7 +27,7 @@ export default function AddProduct() {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       });
-      navigate('/');
+      navigate('/history');
     } catch (err) {
       console.error(err);
       setError('Đã có lỗi khi gửi yêu cầu. Vui lòng thử lại.');
