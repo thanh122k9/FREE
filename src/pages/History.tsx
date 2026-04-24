@@ -19,9 +19,9 @@ interface Product {
 }
 
 const statusConfig = {
-  pending: { label: 'Đang chờ', color: 'bg-amber-50 text-amber-600 border-amber-100' },
-  quoted: { label: 'Đã báo giá', color: 'bg-indigo-50 text-indigo-600 border-indigo-100' },
-  purchased: { label: 'Đã mua', color: 'bg-blue-50 text-blue-600 border-blue-100' },
+  pending: { label: 'Đang chờ duyệt', color: 'bg-amber-50 text-amber-600 border-amber-100' },
+  quoted: { label: 'Chờ mua', color: 'bg-indigo-50 text-indigo-600 border-indigo-100' },
+  purchased: { label: 'Đã mua - Chờ duyệt', color: 'bg-blue-50 text-blue-600 border-blue-100' },
   completed: { label: 'Hoàn tất', color: 'bg-emerald-50 text-emerald-600 border-emerald-100' },
 };
 
@@ -190,10 +190,12 @@ export default function History() {
                   <div className="bg-slate-950 rounded-2xl p-5 text-white relative overflow-hidden">
                     <div className="flex items-center justify-between mb-4">
                         <div className="flex flex-col">
-                           <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-wider">Giá đã duyệt</span>
-                           <h4 className="text-[9px] text-white/30 font-medium uppercase tracking-widest">Giá trị thỏa thuận</h4>
+                           <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-wider">Link mua hàng từ Admin</span>
+                           <h4 className="text-[9px] text-white/30 font-medium uppercase tracking-widest">Giá duyệt: {product.adminQuotePrice}</h4>
                         </div>
-                        <span className="text-2xl font-bold tracking-tight">{product.adminQuotePrice}</span>
+                        <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+                           <ShoppingCart className="w-5 h-5 text-indigo-400" />
+                        </div>
                     </div>
 
                     {product.adminQuoteLink && (
@@ -203,7 +205,7 @@ export default function History() {
                         rel="noreferrer"
                         className="w-full bg-white text-slate-950 font-bold py-3.5 rounded-xl text-[11px] flex items-center justify-center gap-2 transition-all hover:bg-slate-50 uppercase tracking-wider shadow-xl"
                       >
-                        Thanh toán ngay
+                        Mở link mua ngay
                         <ExternalLink className="w-3.5 h-3.5" />
                       </a>
                     )}
@@ -284,10 +286,10 @@ export default function History() {
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-[10px] font-bold text-slate-400 uppercase ml-1">Link phụ (nếu có)</label>
+                        <label className="text-[10px] font-bold text-slate-400 uppercase ml-1">Link mua hàng mới</label>
                         <input
                           type="text"
-                          placeholder="https://..."
+                          placeholder="https://shopee.vn/..."
                           className="w-full px-4 py-3 text-[13px] bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 outline-none transition-all"
                           value={quoteLink}
                           onChange={(e) => setQuoteLink(e.target.value)}
