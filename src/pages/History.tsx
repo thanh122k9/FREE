@@ -217,30 +217,26 @@ export default function History() {
                   </div>
                 </div>
 
-                {/* Admin Quote */}
+                {/* Admin Quote Section */}
                 {(product.status === 'quoted' || product.status === 'purchased' || product.status === 'completed') && product.adminQuotePrice && (
-                  <div className="bg-slate-950 rounded-2xl p-5 text-white relative overflow-hidden">
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="flex flex-col">
-                           <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-wider">Link mua hàng từ Admin</span>
-                           <h4 className="text-[9px] text-white/30 font-medium uppercase tracking-widest">Giá duyệt: {product.adminQuotePrice}</h4>
-                        </div>
-                        <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
-                           <ShoppingCart className="w-5 h-5 text-indigo-400" />
-                        </div>
-                    </div>
-
+                  <div className="bg-slate-950 rounded-[24px] p-4 space-y-3 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none" />
+                    
                     {product.adminQuoteLink && (
                       <a 
                         href={product.adminQuoteLink} 
                         target="_blank" 
                         rel="noreferrer"
-                        className="w-full bg-white text-slate-950 font-bold py-3.5 rounded-xl text-[11px] flex items-center justify-center gap-2 transition-all hover:bg-slate-50 uppercase tracking-wider shadow-xl"
+                        className="w-full bg-white text-slate-950 font-black py-4 rounded-[18px] text-[13px] flex items-center justify-center gap-2 transition-all hover:bg-slate-50 uppercase tracking-[0.1em] shadow-xl"
                       >
-                        Mở link mua ngay
-                        <ExternalLink className="w-3.5 h-3.5" />
+                        MỞ LINK MUA
+                        <ExternalLink className="w-4 h-4" />
                       </a>
                     )}
+
+                    <div className="w-full bg-white text-slate-950 font-black py-4 rounded-[18px] text-[13px] flex items-center justify-center shadow-xl tracking-tight">
+                      hoa hồng nhận được : {product.adminQuotePrice}
+                    </div>
                   </div>
                 )}
 
