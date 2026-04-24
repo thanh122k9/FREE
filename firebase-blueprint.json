@@ -1,0 +1,71 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "birthDate": { "type": "string" },
+        "shopeeId": { "type": "string" },
+        "tiktokId": { "type": "string" },
+        "apiToken": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "ProductLink": {
+      "title": "Product Link",
+      "description": "Information about a shared product link",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userPhoto": { "type": "string" },
+        "title": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "description": { "type": "string" },
+        "imageUrl": { "type": "string", "format": "uri" },
+        "price": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "quoted", "purchased", "completed", "rejected"] },
+        "adminQuotePrice": { "type": "string" },
+        "adminQuoteLink": { "type": "string" },
+        "adminNote": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "url", "status", "createdAt"]
+    },
+    "Post": {
+      "title": "Post",
+      "description": "News or update post from admin",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "imageUrl": { "type": "string", "format": "uri" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "authorId": { "type": "string" }
+      },
+      "required": ["title", "content", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Collection of user profiles"
+    },
+    "/products/{productId}": {
+      "schema": "ProductLink",
+      "description": "Collection of shared product links"
+    },
+    "/posts/{postId}": {
+      "schema": "Post",
+      "description": "Collection of admin posts"
+    }
+  }
+}
