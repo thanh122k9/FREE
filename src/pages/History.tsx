@@ -272,7 +272,7 @@ export default function History() {
                         className="bg-emerald-500 text-white px-4 py-2 rounded-xl font-bold text-[11px] flex items-center gap-2 hover:bg-emerald-600 disabled:opacity-50 shadow-md"
                       >
                         {actingOn === product.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <ShoppingCart className="w-3.5 h-3.5" />}
-                        Mua ngay
+                        Tôi đã mua
                       </button>
                     )}
 
