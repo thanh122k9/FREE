@@ -18,6 +18,11 @@ export default function PublicPayouts() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
+    const timeoutId = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
     const q = query(
       collection(db, 'products'),
       where('status', '==', 'completed'),
@@ -26,15 +31,23 @@ export default function PublicPayouts() {
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
+      clearTimeout(timeoutId);
       const docs = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       })) as Payout[];
       setPayouts(docs);
       setLoading(false);
+    }, (error) => {
+      clearTimeout(timeoutId);
+      console.error("Firestore error in Payouts:", error);
+      setLoading(false);
     });
 
-    return () => unsubscribe();
+    return () => {
+      clearTimeout(timeoutId);
+      unsubscribe();
+    };
   }, []);
 
   if (loading) {
