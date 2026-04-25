@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Home as HomeIcon, Bell, LogIn } from 'lucide-react';
+import { ShoppingCart, Bell, LogIn } from 'lucide-react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../lib/firebase';
 
@@ -10,11 +10,11 @@ export default function Header() {
     <header className="bg-white/70 backdrop-blur-md sticky top-0 z-50 px-5 h-16 flex items-center justify-between border-b border-slate-100/50">
       <Link to="/" className="flex items-center gap-3 group">
         <div className="w-9 h-9 bg-slate-950 rounded-[12px] flex items-center justify-center shadow-lg group-active:scale-90 transition-all">
-          <HomeIcon className="w-4.5 h-4.5 text-white" />
+          <ShoppingCart className="w-4.5 h-4.5 text-white" />
         </div>
         <div className="flex flex-col -space-y-0.5">
-          <span className="font-bold tracking-tight text-xl text-slate-950">LinkPro</span>
-          <span className="text-[9px] font-bold uppercase tracking-[0.15em] text-indigo-500">Creator Hub</span>
+          <span className="font-bold tracking-tight text-xl text-slate-950">ShopNow</span>
+          <span className="text-[9px] font-bold uppercase tracking-[0.15em] text-indigo-500">Affiliate</span>
         </div>
       </Link>
       
