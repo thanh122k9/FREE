@@ -5,6 +5,8 @@ import { auth, db } from '../lib/firebase';
 import { User, Calendar, Smartphone, Send, AlertCircle, ArrowLeft, Loader2, HelpCircle, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useDocument } from 'react-firebase-hooks/firestore';
+import shopeeHelp from '../assets/shopee-help.jpg';
+import tiktokHelp from '../assets/tiktok-help.jpg';
 
 export default function Onboarding() {
   const [displayName, setDisplayName] = useState('');
@@ -220,7 +222,7 @@ export default function Onboarding() {
                         exit={{ opacity: 0, height: 0 }}
                         className="bg-white/5 rounded-xl overflow-hidden mb-2 relative"
                       >
-                        <img src="https://ibb.co/Zpv9vdHC" alt="Shopee Help" className="w-full h-auto" />
+                        <img src={shopeeHelp} alt="Shopee Help" className="w-full h-auto" />
                         <button
                           type="button"
                           onClick={() => setShowShopeeHelp(false)}
@@ -258,7 +260,7 @@ export default function Onboarding() {
                         exit={{ opacity: 0, height: 0 }}
                         className="bg-white/5 rounded-xl overflow-hidden mb-2 relative"
                       >
-                        <img src="https://ibb.co/Ng0QqT6b" alt="TikTok Help" className="w-full h-auto" />
+                        <img src={tiktokHelp} alt="TikTok Help" className="w-full h-auto" />
                         <button
                           type="button"
                           onClick={() => setShowTiktokHelp(false)}
