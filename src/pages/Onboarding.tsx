@@ -80,11 +80,7 @@ export default function Onboarding() {
         ...(profileSnap?.exists() ? {} : { createdAt: new Date().toISOString() })
       }, { merge: true });
       
-      if (isEditing) {
-        navigate('/profile', { replace: true });
-      } else {
-        navigate('/', { replace: true });
-      }
+      navigate('/profile', { replace: true });
     } catch (err) {
       console.error(err);
       setError('Đã có lỗi xảy ra khi lưu thông tin.');
