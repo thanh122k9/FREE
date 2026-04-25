@@ -34,8 +34,14 @@ export default function Home() {
 
   useEffect(() => {
     setLoading(true);
+    // Timeout to prevent infinite loading if Firebase is slow/offline
+    const timeoutId = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
     const qPosts = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));
     const unsubscribePosts = onSnapshot(qPosts, (snapshot) => {
+      clearTimeout(timeoutId);
       const docs = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -43,11 +49,13 @@ export default function Home() {
       setPosts(docs);
       setLoading(false);
     }, (error) => {
+      clearTimeout(timeoutId);
       console.error("Firestore error in Home:", error);
       setLoading(false);
     });
 
     return () => {
+      clearTimeout(timeoutId);
       unsubscribePosts();
     };
   }, []);

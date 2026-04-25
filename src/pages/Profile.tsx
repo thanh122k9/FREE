@@ -44,9 +44,15 @@ export default function Profile() {
   useEffect(() => {
     if (!auth.currentUser) return;
 
+    setLoading(true);
+    const timeoutId = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
     // Listen to User Profile
     const unsubProfile = onSnapshot(doc(db, 'users', auth.currentUser.uid), async (docSnap) => {
       try {
+        clearTimeout(timeoutId);
         if (docSnap.exists()) {
           const data = docSnap.data();
           
@@ -74,6 +80,7 @@ export default function Profile() {
         setLoading(false);
       }
     }, (error) => {
+      clearTimeout(timeoutId);
       console.error("Firestore listener error:", error);
       setLoading(false);
     });
@@ -102,6 +109,7 @@ export default function Profile() {
     });
 
     return () => {
+      clearTimeout(timeoutId);
       unsubProfile();
       unsubStats();
     };
