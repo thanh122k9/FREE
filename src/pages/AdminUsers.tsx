@@ -56,6 +56,7 @@ export default function AdminUsers() {
     const q = query(collection(db, 'users'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const docs = snapshot.docs.map(doc => ({
+        uid: doc.id,
         ...doc.data()
       })) as UserProfile[];
       setUsers(docs);
@@ -90,6 +91,24 @@ export default function AdminUsers() {
     u.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     u.uid?.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  if (!isAdmin && !loading) {
+    return (
+      <div className="flex flex-col items-center justify-center h-64 space-y-4 px-4 text-center">
+        <Shield className="w-12 h-12 text-rose-500 opacity-20" />
+        <div className="space-y-1">
+          <h2 className="text-lg font-bold text-slate-900">Truy cập bị từ chối</h2>
+          <p className="text-sm text-slate-500">Bạn không có quyền quản trị để xem trang này.</p>
+        </div>
+        <button 
+          onClick={() => navigate('/')}
+          className="text-indigo-600 font-bold text-sm"
+        >
+          Quay lại trang chủ
+        </button>
+      </div>
+    );
+  }
 
   if (loading) {
     return (
@@ -181,7 +200,7 @@ export default function AdminUsers() {
               <div className="mt-4 pt-4 border-t border-slate-50 flex items-center justify-between text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                 <div className="flex items-center gap-1.5">
                   <Calendar className="w-3 h-3" />
-                  ID: {user.uid.slice(0, 8)}...
+                  ID: {user.uid?.slice(0, 8)}...
                 </div>
                 <div className={user.isAdmin ? 'text-indigo-500' : 'text-slate-300'}>
                   {user.isAdmin ? 'Quản trị viên' : 'Thành viên'}
