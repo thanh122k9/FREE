@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { collection, query, onSnapshot, doc, updateDoc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../lib/firebase';
-import { User, Shield, Key, RefreshCw, Search, Loader2, Mail, Calendar, CheckCircle2 } from 'lucide-react';
+import { User, Shield, Key, RefreshCw, Search, Loader2, Mail, Calendar, CheckCircle2, ShoppingBag, Smartphone } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,6 +12,8 @@ interface UserProfile {
   photoURL?: string;
   apiToken?: string;
   isAdmin?: boolean;
+  shopeeId?: string;
+  tiktokId?: string;
   onboardingCompleted?: boolean;
   createdAt?: any;
 }
@@ -176,6 +178,21 @@ export default function AdminUsers() {
                   <div className="flex items-center gap-1.5 text-slate-400 text-[11px] mb-3">
                     <Mail className="w-3 h-3" />
                     <span className="truncate">{user.email}</span>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {user.shopeeId && (
+                      <div className="bg-orange-50 text-orange-600 px-3 py-1.5 rounded-xl border border-orange-100 flex items-center gap-1.5 shadow-sm">
+                        <ShoppingBag className="w-3 h-3" />
+                        <span className="text-[10px] font-bold uppercase tracking-tight">Shopee: {user.shopeeId}</span>
+                      </div>
+                    )}
+                    {user.tiktokId && (
+                      <div className="bg-slate-900 text-white px-3 py-1.5 rounded-xl flex items-center gap-1.5 shadow-sm">
+                        <Smartphone className="w-3 h-3" />
+                        <span className="text-[10px] font-bold uppercase tracking-tight">TikTok: {user.tiktokId}</span>
+                      </div>
+                    )}
                   </div>
 
                   <div className="bg-slate-950 rounded-xl p-3 relative group/token">
