@@ -16,6 +16,7 @@ import PublicPayouts from './pages/PublicPayouts';
 import Profile from './pages/Profile';
 import CreatePost from './pages/CreatePost';
 import History from './pages/History';
+import AdminUsers from './pages/AdminUsers';
 import { doc } from 'firebase/firestore';
 import { db } from './lib/firebase';
 import { useDocument } from 'react-firebase-hooks/firestore';
@@ -52,6 +53,7 @@ export default function App() {
               <Route path="/profile" element={user ? (profileComplete ? <Profile /> : <Navigate to="/onboarding" />) : <Navigate to="/login" />} />
               <Route path="/create-post" element={user && profileComplete ? <CreatePost /> : <Navigate to="/login" />} />
               <Route path="/history" element={user && profileComplete ? <History /> : <Navigate to="/login" />} />
+              <Route path="/admin/users" element={user && profileComplete ? <AdminUsers /> : <Navigate to="/login" />} />
               <Route path="/payouts" element={<PublicPayouts />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
