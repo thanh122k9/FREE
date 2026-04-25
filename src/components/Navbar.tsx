@@ -51,12 +51,14 @@ export default function Navbar() {
         <span className="text-[8px] font-bold tracking-tight">Xếp hạng</span>
       </Link>
 
-      <Link
-        to="/add"
-        className="w-10 h-10 bg-slate-950 rounded-full flex items-center justify-center text-white shadow-xl shadow-slate-950/20 active:scale-90 transition-all hover:bg-slate-800 -mt-2"
-      >
-        <Plus className="w-6 h-6" strokeWidth={2.5} />
-      </Link>
+      {!isAdmin && (
+        <Link
+          to="/add"
+          className="w-10 h-10 bg-slate-950 rounded-full flex items-center justify-center text-white shadow-xl shadow-slate-950/20 active:scale-90 transition-all hover:bg-slate-800 -mt-2"
+        >
+          <Plus className="w-6 h-6" strokeWidth={2.5} />
+        </Link>
+      )}
 
       {isAdmin && (
         <Link
