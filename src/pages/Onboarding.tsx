@@ -204,8 +204,8 @@ export default function Onboarding() {
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
                     <label className="block text-[11px] font-bold text-white/30 ml-1 uppercase">ID Shopee</label>
-                    <button 
-                      type="button" 
+                    <button
+                      type="button"
                       onClick={() => setShowShopeeHelp(!showShopeeHelp)}
                       className="text-indigo-400 hover:text-white transition-colors"
                     >
@@ -214,14 +214,14 @@ export default function Onboarding() {
                   </div>
                   <AnimatePresence>
                     {showShopeeHelp && (
-                      <motion.div 
+                      <motion.div
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         className="bg-white/5 rounded-xl overflow-hidden mb-2 relative"
                       >
-                        <img src="https://i.ibb.co/68vS1fL/shopee-help.png" alt="Shopee Help" className="w-full h-auto" />
-                        <button 
+                        <img src="https://ibb.co/Zpv9vdHC" alt="Shopee Help" className="w-full h-auto" />
+                        <button
                           type="button"
                           onClick={() => setShowShopeeHelp(false)}
                           className="absolute top-2 right-2 bg-black/50 text-white p-1 rounded-full"
@@ -242,8 +242,8 @@ export default function Onboarding() {
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
                     <label className="block text-[11px] font-bold text-white/30 ml-1 uppercase">ID TikTok</label>
-                    <button 
-                      type="button" 
+                    <button
+                      type="button"
                       onClick={() => setShowTiktokHelp(!showTiktokHelp)}
                       className="text-indigo-400 hover:text-white transition-colors"
                     >
@@ -252,14 +252,14 @@ export default function Onboarding() {
                   </div>
                   <AnimatePresence>
                     {showTiktokHelp && (
-                      <motion.div 
+                      <motion.div
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         className="bg-white/5 rounded-xl overflow-hidden mb-2 relative"
                       >
-                        <img src="https://i.ibb.co/M9F7XpX/tiktok-help.png" alt="TikTok Help" className="w-full h-auto" />
-                        <button 
+                        <img src="https://ibb.co/Ng0QqT6b" alt="TikTok Help" className="w-full h-auto" />
+                        <button
                           type="button"
                           onClick={() => setShowTiktokHelp(false)}
                           className="absolute top-2 right-2 bg-black/50 text-white p-1 rounded-full"
