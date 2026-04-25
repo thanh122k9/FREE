@@ -4,7 +4,7 @@ import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, update
 import { auth, db } from '../lib/firebase';
 import { Mail, Lock, LogIn, AlertCircle, Chrome } from 'lucide-react';
 import { motion } from 'motion/react';
-import { setDoc, doc, getDoc } from 'firebase/firestore';
+import { setDoc, doc, getDoc, serverTimestamp } from 'firebase/firestore';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -30,9 +30,9 @@ export default function Login() {
           email: user.email,
           displayName: user.displayName,
           photoURL: user.photoURL,
-          role: 'user',
+          isAdmin: false,
           onboardingCompleted: false,
-          createdAt: new Date().toISOString(),
+          createdAt: serverTimestamp(),
         });
       }
       

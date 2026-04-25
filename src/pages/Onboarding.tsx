@@ -69,8 +69,6 @@ export default function Onboarding() {
 
       // Lưu dữ liệu
       await setDoc(doc(db, 'users', auth.currentUser.uid), {
-        uid: auth.currentUser.uid,
-        email: auth.currentUser.email,
         displayName,
         birthDate,
         shopeeId,
@@ -78,7 +76,6 @@ export default function Onboarding() {
         apiToken,
         onboardingCompleted: true,
         updatedAt: serverTimestamp(),
-        ...(profileSnap?.exists() ? {} : { createdAt: serverTimestamp() })
       }, { merge: true });
       
       // Tắt loading và chuyển trang ngay lập tức
