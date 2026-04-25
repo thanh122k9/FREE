@@ -27,15 +27,21 @@ export default function AdminUsers() {
   useEffect(() => {
     async function checkAdmin() {
       if (auth.currentUser) {
-        const docRef = doc(db, 'users', auth.currentUser.uid);
-        const docSnap = await getDoc(docRef);
-        const isHardcodedAdmin = auth.currentUser.email === 'truongthanh.nongtruong@gmail.com';
-        const isDbAdmin = docSnap.exists() && (docSnap.data().isAdmin === true || docSnap.data().role === 'admin');
-        
-        if (isHardcodedAdmin || isDbAdmin) {
-          setIsAdmin(true);
-        } else {
-          navigate('/');
+        try {
+          const docRef = doc(db, 'users', auth.currentUser.uid);
+          const docSnap = await getDoc(docRef);
+          const isHardcodedAdmin = auth.currentUser.email === 'truongthanh.nongtruong@gmail.com';
+          const isDbAdmin = docSnap.exists() && (docSnap.data().isAdmin === true || docSnap.data().role === 'admin');
+          
+          if (isHardcodedAdmin || isDbAdmin) {
+            setIsAdmin(true);
+          } else {
+            console.error("Access denied: Not an admin");
+            setLoading(false);
+          }
+        } catch (err) {
+          console.error("Error checking admin status:", err);
+          setLoading(false);
         }
       } else {
         navigate('/login');
@@ -55,7 +61,7 @@ export default function AdminUsers() {
       setUsers(docs);
       setLoading(false);
     }, (error) => {
-      console.error("Error fetching users:", error);
+      console.error("Firestore error fetching users:", error);
       setLoading(false);
     });
 
