@@ -15,7 +15,7 @@ export default function AddProduct() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!auth.currentUser) return;
-    
+
     setLoading(true);
     try {
       await addDoc(collection(db, 'products'), {
@@ -47,14 +47,14 @@ export default function AddProduct() {
           <div className="w-16 h-16 bg-slate-950 text-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl relative z-10">
             <Link2 className="w-8 h-8" />
           </div>
-          
+
           <div className="space-y-1.5 mb-8 relative z-10">
-            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Đề xuất Link</h1>
-            <p className="text-slate-400 font-medium text-[12px]">Hệ thống gửi tự động LinkRegistry™</p>
+            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Thêm Sản Phẩm Ưa Thích</h1>
+            <p className="text-slate-400 font-medium text-[12px]">Shop Now sẽ tự động xử lý và cập nhật hoa hồng</p>
           </div>
 
           {error && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               className="mb-6 bg-rose-50 border border-rose-100 text-rose-600 p-4 rounded-xl flex items-center gap-3 text-left"
@@ -77,7 +77,7 @@ export default function AddProduct() {
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
                   className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-100 rounded-xl focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 focus:bg-white outline-none transition-all text-[14px] font-medium text-slate-950 placeholder:text-slate-300"
-                  placeholder="https://shopee.vn/product/..."
+                  placeholder="VD: https://shopee.vn/product/..."
                 />
               </div>
             </div>
@@ -97,10 +97,10 @@ export default function AddProduct() {
                 </>
               )}
             </motion.button>
-            
+
             <div className="pt-6 border-t border-slate-50 flex items-center justify-center gap-2">
-               <ShieldAlert className="w-4 h-4 text-slate-300" />
-               <p className="text-[10px] text-slate-300 font-medium">Bảo mật & Tự động hóa bởi LinkPro AI</p>
+              <ShieldAlert className="w-4 h-4 text-slate-300" />
+              <p className="text-[10px] text-slate-300 font-medium">Bảo mật & Tự động hóa bởi Shop Now</p>
             </div>
           </form>
         </div>

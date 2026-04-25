@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../lib/firebase';
-import { User, Calendar, Smartphone, Send, AlertCircle, ArrowLeft, Loader2 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { User, Calendar, Smartphone, Send, AlertCircle, ArrowLeft, Loader2, HelpCircle, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useDocument } from 'react-firebase-hooks/firestore';
 
 export default function Onboarding() {
@@ -15,6 +15,8 @@ export default function Onboarding() {
   const [tiktokId, setTiktokId] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showShopeeHelp, setShowShopeeHelp] = useState(false);
+  const [showTiktokHelp, setShowTiktokHelp] = useState(false);
   const navigate = useNavigate();
 
   const [profileSnap] = useDocument(
@@ -25,7 +27,7 @@ export default function Onboarding() {
   useEffect(() => {
     async function fetchExistingData() {
       if (!auth.currentUser) return;
-      
+
       if (auth.currentUser.displayName) {
         setDisplayName(auth.currentUser.displayName);
       }
@@ -63,7 +65,7 @@ export default function Onboarding() {
     setLoading(true);
     try {
       const birthDate = year && month && day ? `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}` : '';
-      
+
       const existingToken = profileSnap?.data()?.apiToken;
       const apiToken = existingToken || crypto.randomUUID();
 
@@ -77,7 +79,7 @@ export default function Onboarding() {
         onboardingCompleted: true,
         updatedAt: serverTimestamp(),
       }, { merge: true });
-      
+
       // Tắt loading và chuyển trang ngay lập tức
       setLoading(false);
       navigate('/profile', { replace: true });
@@ -97,7 +99,7 @@ export default function Onboarding() {
       >
         <div className="text-center mb-8 relative z-10">
           {isEditing && (
-            <button 
+            <button
               onClick={() => navigate(-1)}
               className="absolute left-0 top-0 p-3 text-slate-400 hover:text-slate-900 transition-all bg-slate-50 rounded-xl"
             >
@@ -109,16 +111,16 @@ export default function Onboarding() {
           </div>
           <div className="space-y-1">
             <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-              {isEditing ? 'Cập nhật hồ sơ' : 'Đăng ký Creator'}
+              {isEditing ? 'Cập nhật hồ sơ' : 'Đăng ký'}
             </h1>
             <p className="text-[12px] font-medium text-slate-400">
-              {isEditing ? 'Cổng cập nhật thông tin bảo mật' : 'Thiết lập tài khoản Creator chuyên nghiệp của bạn'}
+              {isEditing ? 'Cổng cập nhật thông tin bảo mật' : 'Thiết lập tài khoản để bắt đầu mua sắm tiết kiệm'}
             </p>
           </div>
         </div>
 
         {error && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             className="mb-6 bg-rose-50 border border-rose-100 text-rose-600 p-4 rounded-xl flex items-center gap-3 text-left"
@@ -196,11 +198,39 @@ export default function Onboarding() {
 
             <div className="p-6 bg-slate-900 rounded-2xl shadow-xl">
               <h3 className="text-[11px] font-bold text-indigo-400 mb-4 uppercase tracking-widest flex items-center gap-2">
-                Nền tảng mạng xã hội
+                Nền tảng mua sắm
               </h3>
               <div className="space-y-4">
                 <div className="space-y-1.5">
-                  <label className="block text-[11px] font-bold text-white/30 ml-1 uppercase">Shopee handle</label>
+                  <div className="flex items-center justify-between">
+                    <label className="block text-[11px] font-bold text-white/30 ml-1 uppercase">ID Shopee</label>
+                    <button 
+                      type="button" 
+                      onClick={() => setShowShopeeHelp(!showShopeeHelp)}
+                      className="text-indigo-400 hover:text-white transition-colors"
+                    >
+                      <HelpCircle className="w-4 h-4" />
+                    </button>
+                  </div>
+                  <AnimatePresence>
+                    {showShopeeHelp && (
+                      <motion.div 
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="bg-white/5 rounded-xl overflow-hidden mb-2 relative"
+                      >
+                        <img src="https://i.ibb.co/68vS1fL/shopee-help.png" alt="Shopee Help" className="w-full h-auto" />
+                        <button 
+                          type="button"
+                          onClick={() => setShowShopeeHelp(false)}
+                          className="absolute top-2 right-2 bg-black/50 text-white p-1 rounded-full"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                   <input
                     type="text"
                     value={shopeeId}
@@ -210,7 +240,35 @@ export default function Onboarding() {
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="block text-[11px] font-bold text-white/30 ml-1 uppercase">TikTok handle</label>
+                  <div className="flex items-center justify-between">
+                    <label className="block text-[11px] font-bold text-white/30 ml-1 uppercase">ID TikTok</label>
+                    <button 
+                      type="button" 
+                      onClick={() => setShowTiktokHelp(!showTiktokHelp)}
+                      className="text-indigo-400 hover:text-white transition-colors"
+                    >
+                      <HelpCircle className="w-4 h-4" />
+                    </button>
+                  </div>
+                  <AnimatePresence>
+                    {showTiktokHelp && (
+                      <motion.div 
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="bg-white/5 rounded-xl overflow-hidden mb-2 relative"
+                      >
+                        <img src="https://i.ibb.co/M9F7XpX/tiktok-help.png" alt="TikTok Help" className="w-full h-auto" />
+                        <button 
+                          type="button"
+                          onClick={() => setShowTiktokHelp(false)}
+                          className="absolute top-2 right-2 bg-black/50 text-white p-1 rounded-full"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                   <input
                     type="text"
                     value={tiktokId}
