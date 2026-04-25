@@ -18,7 +18,7 @@ export default function Navbar() {
         }`}
       >
         <HomeIcon className={`w-6 h-6 ${isActive('/') ? 'stroke-[2.5px]' : 'stroke-[2px]'}`} />
-        <span className="text-[9px] font-bold tracking-tight">Home</span>
+        <span className="text-[9px] font-bold tracking-tight">Trang chủ</span>
       </Link>
 
       <Link
@@ -28,7 +28,7 @@ export default function Navbar() {
         }`}
       >
         <Trophy className={`w-6 h-6 ${isActive('/payouts') ? 'stroke-[2.5px]' : 'stroke-[2px]'}`} />
-        <span className="text-[9px] font-bold tracking-tight">Rank</span>
+        <span className="text-[9px] font-bold tracking-tight">Xếp hạng</span>
       </Link>
 
       <Link
@@ -45,7 +45,7 @@ export default function Navbar() {
         }`}
       >
         <History className={`w-6 h-6 ${isActive('/history') ? 'stroke-[2.5px]' : 'stroke-[2px]'}`} />
-        <span className="text-[9px] font-bold tracking-tight">History</span>
+        <span className="text-[9px] font-bold tracking-tight">Lịch sử</span>
       </Link>
 
       <Link
@@ -63,7 +63,7 @@ export default function Navbar() {
         ) : (
           <User className={`w-6 h-6 ${isActive('/profile') ? 'stroke-[2.5px]' : 'stroke-[2px]'}`} />
         )}
-        <span className="text-[9px] font-bold tracking-tight">Profile</span>
+        <span className="text-[9px] font-bold tracking-tight">Cá nhân</span>
       </Link>
     </nav>
   );
