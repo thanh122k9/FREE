@@ -62,6 +62,9 @@ export default function History() {
       
       setProducts(docs);
       setLoading(false);
+    }, (error) => {
+      console.error("Firestore error in History:", error);
+      setLoading(false);
     });
 
     return () => unsubscribeProducts();

@@ -46,27 +46,35 @@ export default function Profile() {
 
     // Listen to User Profile
     const unsubProfile = onSnapshot(doc(db, 'users', auth.currentUser.uid), async (docSnap) => {
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        
-        // Auto-generate token if missing
-        if (!data.apiToken) {
-          const newToken = crypto.randomUUID();
-          await setDoc(doc(db, 'users', auth.currentUser!.uid), {
-            uid: auth.currentUser!.uid,
-            email: auth.currentUser!.email,
-            apiToken: newToken,
-            updatedAt: new Date().toISOString()
-          }, { merge: true });
-          return; // The next snapshot will have the token
-        }
+      try {
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          
+          // Auto-generate token if missing
+          if (!data.apiToken) {
+            const newToken = crypto.randomUUID();
+            await setDoc(doc(db, 'users', auth.currentUser!.uid), {
+              uid: auth.currentUser!.uid,
+              email: auth.currentUser!.email,
+              apiToken: newToken,
+              updatedAt: new Date().toISOString()
+            }, { merge: true });
+            return;
+          }
 
-        setProfile({
-          ...data as UserProfile,
-          photoURL: data.photoURL || auth.currentUser?.photoURL || undefined,
-          apiToken: data.apiToken
-        });
+          setProfile({
+            ...data as UserProfile,
+            photoURL: data.photoURL || auth.currentUser?.photoURL || undefined,
+            apiToken: data.apiToken
+          });
+        }
+      } catch (err) {
+        console.error("Profile sync error:", err);
+      } finally {
+        setLoading(false);
       }
+    }, (error) => {
+      console.error("Firestore listener error:", error);
       setLoading(false);
     });
 

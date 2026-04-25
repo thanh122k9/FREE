@@ -42,6 +42,9 @@ export default function Home() {
       })) as Post[];
       setPosts(docs);
       setLoading(false);
+    }, (error) => {
+      console.error("Firestore error in Home:", error);
+      setLoading(false);
     });
 
     return () => {
