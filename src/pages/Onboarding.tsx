@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../lib/firebase';
 import { User, Calendar, Smartphone, Send, AlertCircle, ArrowLeft, Loader2 } from 'lucide-react';
 import { motion } from 'motion/react';
@@ -77,8 +77,8 @@ export default function Onboarding() {
         tiktokId,
         apiToken,
         onboardingCompleted: true,
-        updatedAt: new Date().toISOString(),
-        ...(profileSnap?.exists() ? {} : { createdAt: new Date().toISOString() })
+        updatedAt: serverTimestamp(),
+        ...(profileSnap?.exists() ? {} : { createdAt: serverTimestamp() })
       }, { merge: true });
       
       // Tắt loading và chuyển trang ngay lập tức

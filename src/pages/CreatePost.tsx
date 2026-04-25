@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db, auth } from '../lib/firebase';
 import { useNavigate } from 'react-router-dom';
 import { Send, Image as ImageIcon, Type, AlignLeft, Loader2, ArrowLeft } from 'lucide-react';
@@ -26,7 +26,7 @@ export default function CreatePost() {
         title,
         content,
         imageUrl: imageUrl || null,
-        createdAt: new Date().toISOString(),
+        createdAt: serverTimestamp(),
         authorId: auth.currentUser?.uid
       });
       navigate('/');

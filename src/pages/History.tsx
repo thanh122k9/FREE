@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { collection, query, orderBy, onSnapshot, doc, updateDoc, getDoc, deleteDoc } from 'firebase/firestore';
+import { collection, query, orderBy, onSnapshot, doc, updateDoc, getDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../lib/firebase';
 import { ExternalLink, Clock, User, Link as LinkIcon, Loader2, Edit3, ShoppingCart, CheckCircle2, XCircle, Trash2, Ban } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -14,8 +14,8 @@ interface Product {
   adminQuotePrice?: string;
   adminQuoteLink?: string;
   adminNote?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: any;
+  updatedAt: any;
 }
 
 const statusConfig = {
@@ -75,7 +75,7 @@ export default function History() {
     try {
       await updateDoc(doc(db, 'products', productId), {
         status: 'purchased',
-        updatedAt: new Date().toISOString(),
+        updatedAt: serverTimestamp(),
       });
     } catch (err) {
       console.error(err);
@@ -92,7 +92,7 @@ export default function History() {
         status: 'quoted',
         adminQuotePrice: quotePrice,
         adminQuoteLink: quoteLink || null,
-        updatedAt: new Date().toISOString(),
+        updatedAt: serverTimestamp(),
       });
       setQuotingId(null);
       setQuotePrice('');
@@ -109,7 +109,7 @@ export default function History() {
     try {
       await updateDoc(doc(db, 'products', productId), {
         status: 'completed',
-        updatedAt: new Date().toISOString(),
+        updatedAt: serverTimestamp(),
       });
     } catch (err) {
       console.error(err);
@@ -124,7 +124,7 @@ export default function History() {
     try {
       await updateDoc(doc(db, 'products', productId), {
         status: 'rejected',
-        updatedAt: new Date().toISOString(),
+        updatedAt: serverTimestamp(),
       });
     } catch (err) {
       console.error(err);

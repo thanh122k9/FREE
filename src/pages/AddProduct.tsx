@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { addDoc, collection, doc, getDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../lib/firebase';
 import { Link2, Type, AlignLeft, DollarSign, Image as ImageIcon, Send, Sparkles, AlertCircle, ShieldAlert, Loader2 } from 'lucide-react';
 import { extractProductInfo } from '../services/geminiService';
@@ -24,8 +24,8 @@ export default function AddProduct() {
         userPhoto: auth.currentUser.photoURL,
         url,
         status: 'pending',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
       });
       navigate('/history');
     } catch (err) {
