@@ -218,14 +218,14 @@ export default function Profile() {
           <div className="space-y-1">
             <h1 className="text-2xl font-bold text-slate-900 tracking-tight">{profile?.displayName || 'Creator'}</h1>
             <div className="flex items-center justify-center">
-              <span className="text-[10px] font-bold text-indigo-500 bg-indigo-50 px-3 py-1 rounded-full uppercase tracking-wider">Đối tác xác thực</span>
+              <span className="text-[10px] font-bold text-indigo-500 bg-indigo-50 px-3 py-1 rounded-full uppercase tracking-wider">Người dùng</span>
             </div>
           </div>
 
           <div className="grid grid-cols-3 gap-8 w-full mt-8 border-t border-slate-50 pt-8">
             <div className="space-y-0.5">
               <p className="text-xl font-bold text-slate-900">{stats.totalRequests}</p>
-              <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wide">Links</p>
+              <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wide">Đơn</p>
             </div>
             <div className="space-y-0.5">
               <p className="text-xl font-bold text-emerald-600">{stats.completedPayouts}</p>
@@ -251,20 +251,20 @@ export default function Profile() {
         </div>
         
         <div className="space-y-1 mb-6">
-          <span className="text-[11px] font-bold uppercase tracking-widest text-indigo-400">Thu nhập ròng</span>
+          <span className="text-[11px] font-bold uppercase tracking-widest text-indigo-400">Tổng thu nhập</span>
           <h2 className="text-3xl font-bold tracking-tight">{formatCurrency(stats.totalEarnings)}</h2>
         </div>
 
         <div className="flex items-center gap-2 text-[10px] font-medium text-emerald-400 bg-emerald-400/10 w-fit px-3 py-1 rounded-full">
           <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
-          Thanh toán tự động đang hoạt động
+          Thanh toán sẽ xử lý khi được duyệt bởi Admin
         </div>
       </motion.div>
 
       {/* Main Actions */}
       <div className="grid grid-cols-2 gap-4">
         {[
-          { label: 'Sửa Bio', icon: Smartphone, color: 'text-indigo-600', bg: 'bg-indigo-50', onClick: () => navigate('/onboarding') },
+          { label: 'Sửa Thông Tin', icon: User, color: 'text-indigo-600', bg: 'bg-indigo-50', onClick: () => navigate('/onboarding') },
           { label: 'Lịch sử', icon: History, color: 'text-slate-600', bg: 'bg-slate-50', onClick: () => navigate('/history') },
           { label: 'Xếp hạng', icon: Trophy, color: 'text-amber-500', bg: 'bg-amber-50', onClick: () => navigate('/payouts') },
           { label: 'Cài đặt', icon: Bell, color: 'text-slate-400', bg: 'bg-slate-50', onClick: () => {} },

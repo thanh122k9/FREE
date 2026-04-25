@@ -157,7 +157,7 @@ export default function History() {
     <div className="space-y-6 pb-32 pt-6 px-4">
       <div className="flex flex-col -space-y-0.5">
         <h1 className="text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
-          {isAdmin ? 'Quản trị hệ thống' : 'Lịch sử đề xuất'}
+          {isAdmin ? 'Quản trị hệ thống' : 'Lịch sử các đơn'}
           <span className="flex h-2 w-2 relative">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
@@ -177,7 +177,7 @@ export default function History() {
           <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
              <LinkIcon className="w-8 h-8 text-slate-200" />
           </div>
-          <h2 className="text-[13px] font-medium text-slate-400">Hiện chưa có dữ liệu nào</h2>
+          <h2 className="text-[13px] font-medium text-slate-400">Hiện chưa có đơn hàng nào</h2>
         </motion.div>
       ) : (
         <div className="grid grid-cols-1 gap-5">
@@ -238,7 +238,7 @@ export default function History() {
                     )}
 
                     <div className="w-full bg-white text-slate-950 font-black py-4 rounded-[18px] text-[13px] flex items-center justify-center shadow-xl tracking-tight">
-                      hoa hồng nhận được : {product.adminQuotePrice} đồng
+                      Hoa hồng nhận được : {product.adminQuotePrice} VNĐ
                     </div>
                   </div>
                 )}
@@ -292,7 +292,7 @@ export default function History() {
                         className="bg-slate-950 text-white px-4 py-2 rounded-xl font-bold text-[11px] flex items-center gap-2 hover:bg-slate-800 disabled:opacity-50 shadow-md"
                       >
                         {actingOn === product.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
-                        Hoàn tất
+                        ĐÃ XỬ LÝ
                       </button>
                     )}
 

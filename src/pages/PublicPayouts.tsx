@@ -71,12 +71,12 @@ export default function PublicPayouts() {
         
         <div className="space-y-2">
           <div className="flex flex-col -space-y-0.5">
-             <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Bảng vinh danh</h1>
-             <span className="text-[11px] font-medium text-slate-400">Những Creators xuất sắc nhất tuần này</span>
+             <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Danh sách các đơn</h1>
+             <span className="text-[11px] font-medium text-slate-400">Những đơn hàng đã được duyệt</span>
           </div>
           <div className="flex items-center justify-center gap-2 pt-2">
             <TrendingUp className="w-3.5 h-3.5 text-emerald-500" />
-            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Cập nhật thời gian thực</p>
+            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Cập nhật gần nhất</p>
           </div>
         </div>
       </header>
@@ -88,7 +88,7 @@ export default function PublicPayouts() {
           className="bg-white rounded-[32px] p-20 text-center elegant-card"
         >
            <TrendingUp className="w-16 h-16 text-slate-100 mx-auto mb-4" />
-           <p className="text-slate-300 font-medium text-[12px]">Đang tải dữ liệu thành tích...</p>
+           <p className="text-slate-300 font-medium text-[12px]">Đang tải danh sách...</p>
         </motion.div>
       ) : (
         <div className="space-y-4">
