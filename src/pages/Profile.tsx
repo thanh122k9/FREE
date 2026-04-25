@@ -52,9 +52,12 @@ export default function Profile() {
         // Auto-generate token if missing
         if (!data.apiToken) {
           const newToken = crypto.randomUUID();
-          await updateDoc(doc(db, 'users', auth.currentUser!.uid), {
-            apiToken: newToken
-          });
+          await setDoc(doc(db, 'users', auth.currentUser!.uid), {
+            uid: auth.currentUser!.uid,
+            email: auth.currentUser!.email,
+            apiToken: newToken,
+            updatedAt: new Date().toISOString()
+          }, { merge: true });
           return; // The next snapshot will have the token
         }
 
@@ -116,9 +119,12 @@ export default function Profile() {
         const base64String = reader.result as string;
         
         try {
-          await updateDoc(doc(db, 'users', auth.currentUser!.uid), {
-            photoURL: base64String
-          });
+          await setDoc(doc(db, 'users', auth.currentUser!.uid), {
+            uid: auth.currentUser!.uid,
+            email: auth.currentUser!.email,
+            photoURL: base64String,
+            updatedAt: new Date().toISOString()
+          }, { merge: true });
         } catch (err) {
           console.error("Firestore update error:", err);
         }

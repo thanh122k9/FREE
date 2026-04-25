@@ -68,12 +68,16 @@ export default function Onboarding() {
       const apiToken = existingToken || crypto.randomUUID();
 
       await setDoc(doc(db, 'users', auth.currentUser.uid), {
+        uid: auth.currentUser.uid,
+        email: auth.currentUser.email,
         displayName,
         birthDate,
         shopeeId,
         tiktokId,
         apiToken,
         onboardingCompleted: true,
+        updatedAt: new Date().toISOString(),
+        ...(profileSnap?.exists() ? {} : { createdAt: new Date().toISOString() })
       }, { merge: true });
       
       if (isEditing) {
