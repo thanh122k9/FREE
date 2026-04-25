@@ -67,6 +67,7 @@ export default function Onboarding() {
       const existingToken = profileSnap?.data()?.apiToken;
       const apiToken = existingToken || crypto.randomUUID();
 
+      // Lưu dữ liệu
       await setDoc(doc(db, 'users', auth.currentUser.uid), {
         uid: auth.currentUser.uid,
         email: auth.currentUser.email,
@@ -80,12 +81,13 @@ export default function Onboarding() {
         ...(profileSnap?.exists() ? {} : { createdAt: new Date().toISOString() })
       }, { merge: true });
       
+      // Tắt loading và chuyển trang ngay lập tức
+      setLoading(false);
       navigate('/profile', { replace: true });
     } catch (err) {
-      console.error(err);
-      setError('Đã có lỗi xảy ra khi lưu thông tin.');
-    } finally {
+      console.error("Save error:", err);
       setLoading(false);
+      setError('Đã có lỗi xảy ra khi lưu thông tin. Vui lòng kiểm tra kết nối mạng.');
     }
   };
 
